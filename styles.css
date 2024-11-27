@@ -1,0 +1,191 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    padding: 10px;
+    background: #2f364c;
+    color: white;
+}
+
+nav {
+    text-align: center;
+    margin: 20px 0;
+}
+
+nav button {
+    margin: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.content-section {
+    display: none;
+    padding: 20px;
+}
+
+.content-section:not(.hidden) {
+    display: block;
+}
+
+footer {
+    font-family: fantasy;
+    text-align: center;
+    margin-top: 20px;
+}
+
+canvas {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+#data {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: larger;
+    display: flex; /* Activa Flexbox */
+    flex-direction: column; /* Organiza los elementos en columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+    justify-content: center; /* Centra los elementos verticalmente */
+    text-align: center; /* Centra el texto de los elementos */
+    margin: 20px 0; /* Espaciado vertical para separar del resto del contenido */
+}
+#data p {
+    margin: 10px 0; /* Agrega espacio entre los elementos */
+}
+form {
+    display: flex; /* Activa Flexbox */
+    flex-direction: column; /* Organiza los elementos en columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+    justify-content: center; /* Opcional, centra verticalmente si el contenedor tiene más altura */
+    margin: 20px 0; /* Espaciado superior e inferior del formulario */
+}   
+
+form button {
+    margin-top: 10px; /* Añade espacio superior al botón */
+    padding: 10px 20px; /* Mejora el tamaño del botón */
+    background-color: #333; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    border: none; /* Sin bordes */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    border-radius: 5px; /* Esquinas redondeadas */
+    transition: background-color 0.3s ease; /* Efecto de transición */
+}
+form label {
+    margin-bottom: 8px; /* Espaciado entre el label y el input */
+    font-size: 1.1rem; /* Tamaño del texto de los labels */
+    font-weight: bold; /* Resalta los labels */
+    color: #333; /* Color del texto de los labels */
+}
+
+form input,
+form select {
+    margin: 10px 0; /* Espaciado entre los inputs/select */
+    padding: 10px; /* Relleno interno para los campos */
+    font-size: 1rem; /* Tamaño del texto dentro de los campos */
+    border: 1px solid #ccc; /* Borde de los campos */
+    border-radius: 5px; /* Bordes redondeados */
+    width: 80%; /* Ocupa el 80% del contenedor */
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+}
+
+form button:hover {
+    background-color: #555; /* Color al pasar el cursor sobre el botón */
+}
+
+/* Estilo general para las secciones */
+.content-section {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para las imágenes */
+.section-image {
+    width: 60%; /* Ajusta la imagen al ancho de su contenedor */
+    height: auto;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.section-imagepront {
+    width: 100%; /* Ajusta la imagen al ancho de su contenedor */
+    height: auto;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+.section-image-pid {
+    width: 100%; /* Ajusta la imagen al ancho de su contenedor */
+    height: auto;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* Estilo para los encabezados */
+h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+h3{
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+/* Estilo para los párrafos */
+p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Clase oculta */
+.hidden {
+    display: none;
+}
+.team-images {
+    display: flex;
+    justify-content: space-between; /* Espaciado entre las imágenes */
+    gap: 20px; /* Espacio entre cada imagen */
+    margin-top: 20px; /* Espacio superior */
+}
+
+.team-member {
+    text-align: center; /* Centra el texto debajo de la imagen */
+}
+
+.team-image {
+    width: 80%; /* La imagen ocupará el 100% del contenedor */
+    max-width: 200px; /* Máximo de 200px de ancho para todas las imágenes */
+    height: auto; /* Mantiene la proporción de la imagen */
+    border-radius: 8px; /* Opcional: bordes redondeados */
+}
+.team-imagem {
+    width: 100%; /* La imagen ocupará el 100% del contenedor */
+    max-width: 200px; /* Máximo de 200px de ancho para todas las imágenes */
+    height: auto; /* Mantiene la proporción de la imagen */
+    border-radius: 8px; /* Opcional: bordes redondeados */
+}
+.team-imageb {
+    width: 120%; /* La imagen ocupará el 100% del contenedor */
+    max-width: 200px; /* Máximo de 200px de ancho para todas las imágenes */
+    height: auto; /* Mantiene la proporción de la imagen */
+    border-radius: 8px; /* Opcional: bordes redondeados */
+}
+
+.team-member p {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px; /* Espacio entre la imagen y el párrafo */
+}
+
+
+
+
+
+

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planta de Monitoreo</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="app.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+
+</head>
+<body>
+    <header>
+        <h1>Monitoreo de Temperatura</h1>
+    </header>
+
+    <nav>
+        <button id="btnPlanta">Planta</button>
+        <button id="btnEmpresa">Empresa</button>
+        <button id="btnEquipo">Equipo</button>
+        <button id="btnInstrumentos">Instrumentos</button>
+    </nav>
+
+    <main>
+        <section id="sectionPlanta" class="content-section">
+            <h2>Planta</h2>
+            <p>El horno industrial de dos cámaras ha sido diseñado y construido utilizando MDF (tablero de fibra de densidad media),
+                 un material resistente y adecuado para diversas aplicaciones industriales. Las dimensiones del horno son (160 mm x 75 mm x 75 mm),
+                  lo que lo convierte en un dispositivo compacto y eficiente en términos de espacio.</p>
+           
+            <figure>
+                <center>
+                    <img src="imagenes paghina/explo_planta.png" alt="Diseño de la planta" class="section-image">
+                    <figcaption> Imagen del diseño del horno y sus componentes</figcaption>
+                </center>
+                
+            </figure>
+            
+            <figure>
+                <center>
+                    <img src="imagenes paghina/planta.jpg" alt="Imagen de la planta"class="section-image">
+                    <figcaption>Imagen del horno</figcaption>
+                </center>
+            </figure>
+
+            <section id="sectionConceptos" class="content-section">
+                <h2>Conceptos Claves</h2>
+                <p>Para analizar la planta, es importante entender algunos conceptos fundamentales relacionados con la transferencia de calor y las propiedades de los materiales utilizados:</p>
+                <ol>
+                    <li><strong>Capacidad térmica:</strong> Es la cantidad de calor que un cuerpo puede almacenar al experimentar un cambio de temperatura.</li>
+                    <li><strong>Resistencia térmica:</strong> Es la oposición que presenta un material al flujo de calor a través de él.</li>
+                    <li><strong>Propiedades de los materiales:</strong> Las características térmicas del aire y del MDF son cruciales para el análisis:</li>
+                </ol>
+            
+                <table border="1" style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <thead>
+                        <tr>
+                            <th>Propiedad</th>
+                            <th>Descripción</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Densidad del aire</td>
+                            <td>Masa por unidad de volumen del aire</td>
+                            <td>1.225 kg/m³</td>
+                        </tr>
+                        <tr>
+                            <td>Calor específico del aire</td>
+                            <td>Cantidad de calor necesaria para elevar la temperatura de una unidad de masa de aire en 1 K</td>
+                            <td>1550 J/(kg·K)</td>
+                        </tr>
+                        <tr>
+                            <td>Conductividad térmica del MDF</td>
+                            <td>Capacidad del MDF para conducir el calor</td>
+                            <td>0.12 W/(m·K)</td>
+                        </tr>
+                        <tr>
+                            <td>Espesor del MDF</td>
+                            <td>Grosor del material MDF utilizado en las paredes del horno</td>
+                            <td>3 mm (0.003 m)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+                
+
+            <h2>Modelado Matemático </h2>
+            <h3>Ecuaciones Relacionadas</h3>
+            <p>Con estos datos, se plantean las ecuaciones clave:</p>
+            <p>$$ R_{\text{pared}} = \frac{d}{k \cdot A} $$</p>
+            <p>donde:</p>
+            <ul>
+                <li><strong>R<sub>pared</sub></strong>: Resistencia térmica de la pared (°C/W).</li>
+                <li><strong>d</strong>: Espesor de la pared (m).</li>
+                <li><strong>k</strong>: Conductividad térmica del material (W/m·°C).</li>
+                <li><strong>A</strong>: Área de la pared (m²).</li>
+            </ul>
+            <p>La rejilla de conexión de las dos cámaras también presenta una resistencia con perdida de calor controlada se encuentra dada por :  </p>
+            <p>$$ R_{\text{rejilla}} = \frac{d}{k \cdot A_{\text{perdida}}} $$</p>
+
+            <p>Capacidad termica de las camaras</p>
+            <p>$$ C = masa \cdot calor_especifico $$</p>
+
+            <p>$$ m = 1.225 \cdot (0.08*0.075*0.075) = 0.000551 kg </p>       
+            <p>$$ C = 0.000551 \cdot 1550 = 0.8544 $$</p>     
+
+            <p>El sistema se encuentra con temperatura ambiente constante \( a \). A excepción de las resistencias térmicas \( R_1 \) y \( R_2 \), determinando la función de transferencia que vincula las transformadas de las variables incrementales \( \dot{q}_i(t) \) y \( \dot{\theta}_2 \).</p>
+  
+            <p>Tomando \( \theta_1 \) y \( \theta_2 \) como las dos variables de estado, podemos escribir las ecuaciones diferenciales:</p>
+            
+            <p>Ecuación (1):</p>
+            <p>
+                \[
+                \dot{\theta}_1 = \frac{1}{C_1} \left[ \dot{q}_i(t) - \frac{1}{R_1} (\theta_1 - \theta_2) \right]
+                \]
+            </p>
+            
+            <p>Ecuación (2):</p>
+            <p>
+                \[
+                \dot{\theta}_2 = \frac{1}{C_2} \left[ \frac{1}{R_1} (\theta_1 - \theta_2) - \frac{1}{R_2} (\theta_2 - \theta_a) \right]
+                \]
+            </p>
+            
+            <p>En el punto de operación correspondiente a la entrada nominal \( \dot{\bar{q}}_i \):</p>
+            
+            <p>Ecuación (3):</p>
+            <p>
+                \[
+                \dot{\bar{q}}_i - \frac{1}{R_1} (\bar{\theta}_1 - \bar{\theta}_2) = 0
+                \]
+            </p>
+            <p>De donde se obtiene:</p>
+            
+            <p>Ecuación (4):</p>
+            <p>
+                \[
+                \frac{1}{R_1} (\bar{\theta}_1 - \bar{\theta}_2) - \frac{1}{R_2} (\bar{\theta}_2 - \theta_a) = 0
+                \]
+            </p>
+
+            <p>Ecuaciones (5) y (6):</p>
+            <p>
+                \[
+                \bar{\theta}_2 = \theta_a + R_2 \dot{\bar{q}}_i
+                \]
+            </p>
+            <p>
+                \[
+                \bar{\theta}_1 = \theta_a + (R_1 + R_2) \dot{\bar{q}}_i
+                \]
+            </p>
+
+            <p>Se introducen las temperaturas incrementales definidas como \( \hat{\theta}_1 = \theta_1 - \bar{\theta}_1 \) y \( \hat{\theta}_2 = \theta_2 - \bar{\theta}_2 \). Al sustituir obtenemos:</p>
+            
+            <p>Ecuaciones (7) y (8):</p>
+            <p>
+                \[
+                \dot{\hat{\theta}}_1 + \frac{1}{R_1 C_1} \hat{\theta}_1 - \frac{1}{R_1 C_1} \hat{\theta}_2 = \frac{1}{C_1} \dot{q}_i(t)
+                \]
+            </p>
+            <p>
+                \[
+                \dot{\hat{\theta}}_2 + \frac{1}{R_1 C_2} \hat{\theta}_1 - \left( \frac{1}{R_1 C_2} + \frac{1}{R_2 C_2} \right) \hat{\theta}_2 = 0
+                \]
+            </p>
+
+            <p>Transformando \( \dot{\hat{\theta}}_1 = \dot{\hat{\theta}}_2 = 0 \), obtenemos:</p>
+            
+            <p>Ecuación (9):</p>
+            <p>
+                \[
+                \left( s + \frac{1}{R_1 C_1} \right) \hat{\Theta}_1(s) - \frac{1}{R_1 C_1} \hat{\Theta}_2(s) = \frac{1}{C_1} \dot{Q}_i(s)
+                \]
+            </p>
+            <p>
+                \[
+                \left( s + \frac{1}{R_1 C_2} + \frac{1}{R_2 C_2} \right) \hat{\Theta}_2(s) - \frac{1}{R_1 C_2} \hat{\Theta}_1(s) = 0
+                \]
+            </p>
+
+            <p>Ecuación (11):</p>
+            <p>
+                \[
+                H(s) = \frac{\hat{\Theta}_2(s)}{\dot{Q}_i(s)} = \frac{1}{s^2 + s \left( \frac{1}{R_1 C_1} + \frac{1}{R_2 C_2} \right) + \frac{1}{R_1 R_2 C_1 C_2}}
+                \]
+            </p>
+
+            </section>
+            <section id="PIDcompact" class="content-section"> 
+                <h2>Controladores</h2>
+                
+                <h3>Ecuacion PID en Tia portal</h3>
+                <p>
+                    La ecuación del controlador PID se describe como:
+                </p>
+                <p>
+                    \[
+                    y = K_p \left[ b \cdot (w - x) + \frac{1}{T_I \cdot s} (w - x) + \frac{T_D \cdot s}{a \cdot T_D \cdot s + 1} \cdot c \cdot (w - x) \right]
+                    \]
+                </p>
+                <h2>Donde:</h2>
+                <ul>
+                    <li>\(y\): Representa la salida calculada por el controlador PID.</li>
+                    <li>\(K_p\): Es el coeficiente proporcional, encargado de ajustar la intensidad de la corrección del sistema frente al error.</li>
+                    <li>\(w\): Corresponde al valor deseado o consigna del sistema (<i>setpoint</i>).</li>
+                    <li>\(x\): Indica el valor actual del sistema, también conocido como retroalimentación.</li>
+                    <li>\(T_I\): Denota el tiempo de integración, responsable de corregir errores acumulados de forma persistente.</li>
+                    <li>\(T_D\): Representa el tiempo derivativo, que responde a los cambios rápidos en la variación del error.</li>
+                    <li>\(s\): Es el operador de Laplace, empleado para modelar la dinámica del sistema en el dominio de la frecuencia.</li>
+                    <li>\(b\): Es un peso aplicado a la acción proporcional en el control.</li>
+                    <li>\(c\): Es un peso que ajusta la contribución de la acción derivativa.</li>
+                    <li>\(\alpha\): Coeficiente que introduce un filtro de primer orden para estabilizar la acción derivativa.</li>
+                </ul>
+
+                <p>Con esto claro se obtuvieron los siguientes parametros</p>
+                <figure>
+                    <center>
+                        <img src="imagenes paghina/pid_compact.jpg" alt="parametros PID" class="section-image-pid">
+                        <figcaption> Parametros del PID compact ingresados en TIA PORTAL</figcaption>
+                    </center>
+                </figure>
+
+                <h3>Control discreto-discreto</h3>
+
+                <p>
+                    La ecuación del controladordiscreto-discreto:
+                </p>
+                <p>
+                    \[
+                    uu[0] = q2 \cdot E[0] -  q1 \cdot E[1] +  q2 \cdot E[2] - sss \cdot uu[1] +  s0 \cdot uu[2]
+                    \]
+                </p>
+                <h2>Donde: </h2>
+                <ul>
+                    <li>\(uu\): Es un vector de salidas de 3 posiciones</li>
+                    <li>\(E\): Es un vector de error de 3 posiciones</li>
+                    <li>\(q0\): es una constante de valor 0.1934</li>
+                    <li>\(q1\): es una constante de valor -0.3859</li>
+                    <li>\(q2\): es una constante de valor 0.1925</li>
+                    <li>\(sss\): es una constante de valor 0.4219</li>
+
+
+                </ul>
+
+                <p> Y se representa en TIA PORTA de la siguiente manera: </p>
+                <figure>
+                    <center>
+                        <img src="imagenes paghina/discret_table.jpg" alt="d-d" class="section-image-pid">
+                        <figcaption> tabla de valores de ecuacion en diferencas TIA PORTAL.</figcaption>
+                    </center>
+                </figure>
+                <p>
+                    Con la cual se obtiene el siguiente resultado
+
+                </p>
+                <figure>
+                    <center>
+                        <img src="imagenes paghina/sol discret.jpg" alt="sol d-d" class="section-image-pid">
+                        <figcaption> Respuesta del controlador discreto-discreto.</figcaption>
+                    </center>
+                </figure>
+                <h3>servo sistema</h3>
+                <p>
+                    Los servosistemas en una planta térmica controlada por un PLC S7-1500 son fundamentales para el control preciso
+                     y eficiente de las variables críticas del proceso. La capacidad de respuesta rápida, 
+                    la estabilidad y la eficiencia energética son algunos de los principales beneficios que ofrecen estos sistemas.
+                </p>
+                <figure>
+                    <center>
+                        <img src="imagenes paghina/sol serv.jpg" alt="sol servo" class="section-image-pid">
+                        <figcaption> Respuesta del controlador servosistema.</figcaption>
+                    </center>
+                </figure>
+                <section>
+                    <h3>Planos de diseño Mecanico</h3>
+                    <figure>
+                        <center>
+                            <img src="lab final planos/planta_transparente.jpg" alt="sol servo" class="section-image">
+                            
+                        </center>
+                    </figure>
+                    <p>Planos espcificos de cada parte de la planta</p>
+                    <figure>
+                        <center>
+                            <iframe src="lab final planos/Planoinferior.pdf" width="300" height="200"></iframe>
+                            <figcaption>Plano inferior</figcaption>
+                        </center>
+                    </figure>
+                    
+                    <figure>
+                        <center>
+                            <iframe src="lab final planos/PlanoSuperior.pdf" width="300" height="200"></iframe>
+                            <figcaption>Plano superior</figcaption>
+                        </center>
+                    </figure>
+                    <figure>
+                        <center>
+                            <iframe src="lab final planos/Planotapa.pdf" width="300" height="200"></iframe>
+                            <figcaption>Plano de la tapa</figcaption>
+                        </center>
+                    </figure>
+                    <figure>
+                        <center>
+                            <iframe src="lab final planos/Planoventilador.pdf" width="300" height="200"></iframe>
+                            <figcaption>Plano del soporte ventilador</figcaption>
+                        </center>
+                    </figure>
+                    <figure>
+                        <center>
+                            <iframe src="lab final planos/Planobombill.pdf" width="300" height="200"></iframe>
+                            <figcaption>Plano soporte bombillo.</figcaption>
+                        </center>
+                    </figure>
+                    <figure>
+                        <center>
+                            <iframe src="lab final planos/PlanoRejilla.pdf" width="300" height="200"></iframe>
+                            <figcaption>Plano Rejilla de division de camaras. </figcaption>
+                        </center>
+                    </figure>
+                </section>
+                <section>
+                    <h3>Planos electricos</h3>
+                    <figure>
+                        <center>
+                            <img src="lab final planos/control.jpg" alt="sol servo" class="section-image">
+                            <figcaption>Plano de PCB etapa de control</figcaption>
+                        </center>
+                    </figure>
+
+                    <figure>
+                        <center>
+                            <img src="lab final planos/potencia_1.jpg" alt="sol servo" class="section-image">
+                            <figcaption>Plano de PCB etapa de potencia.</figcaption>
+                        </center>
+                    </figure>
+                   
+
+                </section>
+
+            </section>
+
+
+
+            
+
+
+
+        </section>
+        
+        <section id="sectionEmpresa" class="content-section hidden">
+            <h2>Diseño mecatrónico total</h2>
+            <img src="empresa/pront.jpg" alt="Imagen de la empresa" class="section-imagepront">
+            <p>
+                La empresa fue fundada en 2023 con el objetivo de innovar en el sector industrial y brindar solucionesingeniosas.
+                 Hoy en día, somos una empresa en crecimiento, con importantes proyectos desarrollados y un equipo altamente capacitado.
+            </p>
+            <section id="proyects" class="content-section">
+                <h2>---Nosotros---</h2>
+                <figure>
+                    <center>
+                        <img src="empresa/nosotros.jpg" alt="nosotros" class="section-image-pid">
+                    </center>
+                </figure>
+
+
+                <p>
+                    Contamos con grandes proyectos como lo son El diseño de una paletizadora y 
+                    el control automatico de una planta termica industrial
+                </p>
+                <h3>Algunos de nuestros Resultados</h3>
+                <figure>
+                    <center>
+                        <video class="section-image-pid" controls>
+                            <source src="empresa/video.mp4" type="video/mp4">
+                            Tu navegador no soporta la reproducción de videos.
+                        </video>
+                    </center>
+                </figure>
+                
+
+
+            </section>
+
+            
+        </section>
+        
+        <section id="sectionEquipo" class="content-section hidden">
+            <h2>Equipo</h2>
+            <p>El equipo está compuesto por profesionales con amplia experiencia en proyectos. Trabajamos juntos para proporcionar soluciones innovadoras, efectivas y de alta calidad a nuestros clientes.</p>
+            
+            <div class="team-images">
+                <div class="team-member">
+                    <img src="equipo/Manuel.jpg" alt="Miembro del equipo 1" class="team-imagem">
+                    <p>Manuel Amezquita Cardenas: Creador y fundador original de diseño mecatrónico total, apasionado por la ingeniería aerea, 
+                        la fotografía y la F1</p>
+                </div>
+                <div class="team-member">
+                    <img src="equipo/nicolas.jpg" alt="Miembro del equipo 2" class="team-image">
+                    <p>Nicolas Machado: Representante estudiantil de ingeniería en mecatrónica,sumado a diseño mecatrónico total
+                        en 2024, fascinado por la ingeniería practica y amante al deporte.</p>
+                </div>
+                <div class="team-member">
+                    <img src="equipo/Brahian.png" alt="Miembro del equipo 3" class="team-imageb">
+                    <p>Brahian Berrio Rodriguez: Cocreador de diseño mecatrónico total, apasionado por la ingeniería aeroespacial, el deporte y la musica</p>
+                </div>
+            </div>
+        </section>
+        
+        
+        <section id="sectionInstrumentos" class="content-section hidden">
+            <h2>Instrumentos</h2>
+            <p>Contamos con equipos de última tecnología para garantizar la precisión en nuestros productos. Nuestros instrumentos están certificados y son utilizados en diversos procesos de fabricación.</p>
+            
+            <figure>
+                <center>
+                    <img src="instrumentos/pt100.jpg" alt="pt100" class="section-image">
+                    <figcaption>PT100</figcaption>
+                </center>
+            </figure>
+            <figure>
+                <center>
+                    <img src="instrumentos/H4.jpg" alt="h4" class="section-image">
+                    <figcaption>Bombillo H4</figcaption>
+                </center>
+            </figure>
+            <figure>
+                <center>
+                    <img src="instrumentos/ventila.gif" alt="veni" class="section-image">
+                    <figcaption>ventilador de 12v</figcaption>
+                </center>
+            </figure>
+            <figure>
+                <center>
+                    <img src="lab final planos/control PCB.jpg" alt="pcb_con" class="section-image">
+                    <figcaption>PCB de control</figcaption>
+                </center>
+            </figure>
+            <figure>
+                <center>
+                    <img src="lab final planos/potencia PCB.jpg" alt="veni" class="section-image">
+                    <figcaption>PCB de potencia</figcaption>
+                </center>
+            </figure>
+
+        </section>
+        
+        
+        <h3>Estado actual    de la planta</h3>
+        <canvas id="temperatureChart"></canvas>
+        
+        <div id="data">
+            <p>Temperatura: <span id="temperature">-</span></p>
+            <p>Referencia: <span id="reference">-</span></p>
+            <p>Sistema: <span id="Alarm">-</span></p>
+            
+        </div>
+    <h3>Ingresa una referencia deseada: </h3>
+        <form id="testForm">
+           
+            <input id="referenceInput" type="number" placeholder="Referencia" required>
+           
+            
+            <button type="submit">Enviar</button>
+        </form>
+    </main>
+
+    <footer>
+            
+            <p>Desarrollado por Manuelito, Nicolas y Brahian. © 2024</p>
+        
+    </footer>
+</body>
+</html>
